@@ -10,6 +10,7 @@ const Draft: React.FC = () => {
 
 const submitData = async (e: React.SyntheticEvent) => {
   e.preventDefault();
+  console.log('submitting');
   try {
     const body = { title, content };
     await fetch('/api/post', {
