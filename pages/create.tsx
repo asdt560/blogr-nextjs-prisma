@@ -42,7 +42,7 @@ const submitData = async (e: React.SyntheticEvent) => {
             rows={8}
             value={content}
           />
-          <input disabled={!content || !title} type="submit" value="Create" />
+          <input className="create" disabled={!content || !title} type="submit" value="Create" />
           <a className="back" href="#" onClick={() => Router.push('/')}>
             or Cancel
           </a>
@@ -70,6 +70,12 @@ const submitData = async (e: React.SyntheticEvent) => {
           background: #ececec;
           border: 0;
           padding: 1rem 2rem;
+        }
+
+        input[disabled='false'] {
+          background: #f2f2f2;
+          color: #ececec;
+          cursor: pointer;
         }
 
         .back {
