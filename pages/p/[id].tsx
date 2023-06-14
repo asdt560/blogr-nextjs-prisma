@@ -3,6 +3,7 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import ReactMarkdown from 'react-markdown';
+import Link from 'next/link';
 import Router from 'next/router';
 import Layout from '../../components/Layout';
 import { PostProps } from '../../components/Post';
@@ -27,6 +28,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 async function publishPost(id: string): Promise<void> {
   await fetch(`/api/publish/${id}`, {
+    method: 'PUT',
+  });
+  await Router.push('/');
+}
+
+async function editPost(id: string): Promise<void> {
+  await fetch(`/api/edit/${id}`, {
     method: 'PUT',
   });
   await Router.push('/');
@@ -59,6 +67,13 @@ const Post: React.FC<PostProps> = (props) => {
         <ReactMarkdown children={props.content} />
         {!props.published && userHasValidSession && postBelongsToUser && (
           <button onClick={() => publishPost(props.id)}>Publish</button>
+        )}
+        {!props.published && userHasValidSession && postBelongsToUser && (
+          <Link href="/edit">
+            <button>
+              Edit
+            </button>
+          </Link>
         )}
         {userHasValidSession && postBelongsToUser && (
           <button onClick={() => deletePost(props.id)}>Delete</button>
